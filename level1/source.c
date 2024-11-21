@@ -2,8 +2,8 @@
 #include <string.h>
 
 int main() {
-    char input[100];         
-    const char *correct_key = "__stack_check";
+    char input[100];
+    char correct_key[] = { '_', '_', 's', 't', 'a', 'c', 'k', '_', 'c', 'h', 'e', 'c', 'k', '\0' };
 
     printf("Please enter key: ");
     scanf("%99s", input);

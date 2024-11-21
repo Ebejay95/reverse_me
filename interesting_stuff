@@ -1,0 +1,566 @@
+c4c4c1% cd thehacker 
+c4c4c1% ls
+binary	level1	level2
+c4c4c1% cd level1 
+c4c4c1% ls
+password  source.c
+c4c4c1% cat password 
+__stack_check
+c4c4c1% cat source.c 
+#include <stdio.h>
+#include <string.h>
+
+int	main(void)
+{
+	char		input[100];
+	struct
+	{
+		char	a;
+		char	b;
+		char	c;
+		char	d;
+		char	e;
+		char	f;
+		char	g;
+		char	h;
+		char	i;
+		char	j;
+		char	k;
+		char	l;
+		char	m;
+		char	n;
+	}			key = {
+		'_',
+		'_',
+		's',
+		't',
+		'a',
+		'c',
+		'k',
+		'_',
+		'c',
+		'h',
+		'e',
+		'c',
+		'k',
+		'\0'
+	};
+
+	(void)printf("Please enter key: ");
+	(void)scanf("%s", input);
+	if (strcmp(input, &key.a) == 0)
+		(void)printf("Good job.\n");
+	else
+		(void)printf("Nope.\n");
+	return (0);
+}
+c4c4c1% cd ..
+c4c4c1% ls
+binary	level1	level2
+c4c4c1% cd level2 
+c4c4c1% ls
+password  source.c
+c4c4c1% cc source.c
+c4c4c1% ./a.out < password
+Please enter key: Good job.
+c4c4c1% ./a.out           
+Please enter key: uithuiqghuoe
+Nope.
+c4c4c1% cd lev
+c4c4c1% cd ../binary 
+c4c4c1% ./level1
+Please enter key: __stack_check
+Good job.
+c4c4c1% man objdump                  
+c4c4c1% ./level1   
+c4c4c1% ./
+c4c4c1% objdump git@vogsphere.42berlin.de:vogsphere/intra-uuid-59bc353e-f465-46bd-a9e6-5f428ea1ddd5-6203331-tischmid
+c4c4c1% ./a.out     
+c4c4c1% man objdump
+c4c4c1% objdump --visualize-jumps=extended-color -d -M intel level1
+
+level1:     file format elf32-i386
+
+
+Disassembly of section .init:
+
+00001000 <_init>:
+    1000:	    f3 0f 1e fb          	endbr32 
+    1004:	    53                   	push   ebx
+    1005:	    83 ec 08             	sub    esp,0x8
+    1008:	    e8 b3 00 00 00       	call   10c0 <__x86.get_pc_thunk.bx>
+    100d:	    81 c3 f3 2f 00 00    	add    ebx,0x2ff3
+    1013:	    8b 83 f4 ff ff ff    	mov    eax,DWORD PTR [ebx-0xc]
+    1019:	    85 c0                	test   eax,eax
+    101b:	/-- 74 02                	je     101f <_init+0x1f>
+    101d:	|   ff d0                	call   eax
+    101f:	\-> 83 c4 08             	add    esp,0x8
+    1022:	    5b                   	pop    ebx
+    1023:	    c3                   	ret    
+
+Disassembly of section .plt:
+
+00001030 <strcmp@plt-0x10>:
+    1030:	ff b3 04 00 00 00    	push   DWORD PTR [ebx+0x4]
+    1036:	ff a3 08 00 00 00    	jmp    DWORD PTR [ebx+0x8]
+    103c:	00 00                	add    BYTE PTR [eax],al
+	...
+
+00001040 <strcmp@plt>:
+    1040:	ff a3 0c 00 00 00    	jmp    DWORD PTR [ebx+0xc]
+    1046:	68 00 00 00 00       	push   0x0
+    104b:	e9 e0 ff ff ff       	jmp    1030 <_init+0x30>
+
+00001050 <__libc_start_main@plt>:
+    1050:	ff a3 10 00 00 00    	jmp    DWORD PTR [ebx+0x10]
+    1056:	68 08 00 00 00       	push   0x8
+    105b:	e9 d0 ff ff ff       	jmp    1030 <_init+0x30>
+
+00001060 <printf@plt>:
+    1060:	ff a3 14 00 00 00    	jmp    DWORD PTR [ebx+0x14]
+    1066:	68 10 00 00 00       	push   0x10
+    106b:	e9 c0 ff ff ff       	jmp    1030 <_init+0x30>
+
+00001070 <__isoc99_scanf@plt>:
+    1070:	ff a3 18 00 00 00    	jmp    DWORD PTR [ebx+0x18]
+    1076:	68 18 00 00 00       	push   0x18
+    107b:	e9 b0 ff ff ff       	jmp    1030 <_init+0x30>
+
+Disassembly of section .plt.got:
+
+00001080 <__cxa_finalize@plt>:
+    1080:	ff a3 f0 ff ff ff    	jmp    DWORD PTR [ebx-0x10]
+    1086:	66 90                	xchg   ax,ax
+
+Disassembly of section .text:
+
+00001090 <_start>:
+    1090:	    f3 0f 1e fb          	endbr32 
+    1094:	    31 ed                	xor    ebp,ebp
+    1096:	    5e                   	pop    esi
+    1097:	    89 e1                	mov    ecx,esp
+    1099:	    83 e4 f0             	and    esp,0xfffffff0
+    109c:	    50                   	push   eax
+    109d:	    54                   	push   esp
+    109e:	    52                   	push   edx
+    109f:	/-- e8 18 00 00 00       	call   10bc <_start+0x2c>
+    10a4:	|   81 c3 5c 2f 00 00    	add    ebx,0x2f5c
+    10aa:	|   6a 00                	push   0x0
+    10ac:	|   6a 00                	push   0x0
+    10ae:	|   51                   	push   ecx
+    10af:	|   56                   	push   esi
+    10b0:	|   ff b3 f8 ff ff ff    	push   DWORD PTR [ebx-0x8]
+    10b6:	|   e8 95 ff ff ff       	call   1050 <__libc_start_main@plt>
+    10bb:	|   f4                   	hlt    
+    10bc:	\-> 8b 1c 24             	mov    ebx,DWORD PTR [esp]
+    10bf:	    c3                   	ret    
+
+000010c0 <__x86.get_pc_thunk.bx>:
+    10c0:	8b 1c 24             	mov    ebx,DWORD PTR [esp]
+    10c3:	c3                   	ret    
+    10c4:	66 90                	xchg   ax,ax
+    10c6:	66 90                	xchg   ax,ax
+    10c8:	66 90                	xchg   ax,ax
+    10ca:	66 90                	xchg   ax,ax
+    10cc:	66 90                	xchg   ax,ax
+    10ce:	66 90                	xchg   ax,ax
+
+000010d0 <deregister_tm_clones>:
+    10d0:	    e8 e4 00 00 00       	call   11b9 <__x86.get_pc_thunk.dx>
+    10d5:	    81 c2 2b 2f 00 00    	add    edx,0x2f2b
+    10db:	    8d 8a 24 00 00 00    	lea    ecx,[edx+0x24]
+    10e1:	    8d 82 24 00 00 00    	lea    eax,[edx+0x24]
+    10e7:	    39 c8                	cmp    eax,ecx
+    10e9:	/-- 74 1d                	je     1108 <deregister_tm_clones+0x38>
+    10eb:	|   8b 82 ec ff ff ff    	mov    eax,DWORD PTR [edx-0x14]
+    10f1:	|   85 c0                	test   eax,eax
+    10f3:	+-- 74 13                	je     1108 <deregister_tm_clones+0x38>
+    10f5:	|   55                   	push   ebp
+    10f6:	|   89 e5                	mov    ebp,esp
+    10f8:	|   83 ec 14             	sub    esp,0x14
+    10fb:	|   51                   	push   ecx
+    10fc:	|   ff d0                	call   eax
+    10fe:	|   83 c4 10             	add    esp,0x10
+    1101:	|   c9                   	leave  
+    1102:	|   c3                   	ret    
+    1103:	|   8d 74 26 00          	lea    esi,[esi+eiz*1+0x0]
+    1107:	|   90                   	nop
+    1108:	\-> c3                   	ret    
+    1109:	    8d b4 26 00 00 00 00 	lea    esi,[esi+eiz*1+0x0]
+
+00001110 <register_tm_clones>:
+    1110:	    e8 a4 00 00 00       	call   11b9 <__x86.get_pc_thunk.dx>
+    1115:	    81 c2 eb 2e 00 00    	add    edx,0x2eeb
+    111b:	    55                   	push   ebp
+    111c:	    89 e5                	mov    ebp,esp
+    111e:	    53                   	push   ebx
+    111f:	    8d 8a 24 00 00 00    	lea    ecx,[edx+0x24]
+    1125:	    8d 82 24 00 00 00    	lea    eax,[edx+0x24]
+    112b:	    83 ec 04             	sub    esp,0x4
+    112e:	    29 c8                	sub    eax,ecx
+    1130:	    89 c3                	mov    ebx,eax
+    1132:	    c1 e8 1f             	shr    eax,0x1f
+    1135:	    c1 fb 02             	sar    ebx,0x2
+    1138:	    01 d8                	add    eax,ebx
+    113a:	    d1 f8                	sar    eax,1
+    113c:	/-- 74 14                	je     1152 <register_tm_clones+0x42>
+    113e:	|   8b 92 fc ff ff ff    	mov    edx,DWORD PTR [edx-0x4]
+    1144:	|   85 d2                	test   edx,edx
+    1146:	+-- 74 0a                	je     1152 <register_tm_clones+0x42>
+    1148:	|   83 ec 08             	sub    esp,0x8
+    114b:	|   50                   	push   eax
+    114c:	|   51                   	push   ecx
+    114d:	|   ff d2                	call   edx
+    114f:	|   83 c4 10             	add    esp,0x10
+    1152:	\-> 8b 5d fc             	mov    ebx,DWORD PTR [ebp-0x4]
+    1155:	    c9                   	leave  
+    1156:	    c3                   	ret    
+    1157:	    8d b4 26 00 00 00 00 	lea    esi,[esi+eiz*1+0x0]
+    115e:	    66 90                	xchg   ax,ax
+
+00001160 <__do_global_dtors_aux>:
+    1160:	       f3 0f 1e fb          	endbr32 
+    1164:	       55                   	push   ebp
+    1165:	       89 e5                	mov    ebp,esp
+    1167:	       53                   	push   ebx
+    1168:	       e8 53 ff ff ff       	call   10c0 <__x86.get_pc_thunk.bx>
+    116d:	       81 c3 93 2e 00 00    	add    ebx,0x2e93
+    1173:	       83 ec 04             	sub    esp,0x4
+    1176:	       80 bb 24 00 00 00 00 	cmp    BYTE PTR [ebx+0x24],0x0
+    117d:	/----- 75 27                	jne    11a6 <__do_global_dtors_aux+0x46>
+    117f:	|      8b 83 f0 ff ff ff    	mov    eax,DWORD PTR [ebx-0x10]
+    1185:	|      85 c0                	test   eax,eax
+    1187:	|  /-- 74 11                	je     119a <__do_global_dtors_aux+0x3a>
+    1189:	|  |   83 ec 0c             	sub    esp,0xc
+    118c:	|  |   ff b3 20 00 00 00    	push   DWORD PTR [ebx+0x20]
+    1192:	|  |   e8 e9 fe ff ff       	call   1080 <__cxa_finalize@plt>
+    1197:	|  |   83 c4 10             	add    esp,0x10
+    119a:	|  \-> e8 31 ff ff ff       	call   10d0 <deregister_tm_clones>
+    119f:	|      c6 83 24 00 00 00 01 	mov    BYTE PTR [ebx+0x24],0x1
+    11a6:	\----> 8b 5d fc             	mov    ebx,DWORD PTR [ebp-0x4]
+    11a9:	       c9                   	leave  
+    11aa:	       c3                   	ret    
+    11ab:	       8d 74 26 00          	lea    esi,[esi+eiz*1+0x0]
+    11af:	       90                   	nop
+
+000011b0 <frame_dummy>:
+    11b0:	f3 0f 1e fb          	endbr32 
+    11b4:	e9 57 ff ff ff       	jmp    1110 <register_tm_clones>
+
+000011b9 <__x86.get_pc_thunk.dx>:
+    11b9:	8b 14 24             	mov    edx,DWORD PTR [esp]
+    11bc:	c3                   	ret    
+    11bd:	66 90                	xchg   ax,ax
+    11bf:	90                   	nop
+
+000011c0 <main>:
+    11c0:	       55                   	push   ebp
+    11c1:	       89 e5                	mov    ebp,esp
+    11c3:	       53                   	push   ebx
+    11c4:	       81 ec 84 00 00 00    	sub    esp,0x84
+    11ca:	   /-- e8 00 00 00 00       	call   11cf <main+0xf>
+    11cf:	   \-> 5b                   	pop    ebx
+    11d0:	       81 c3 31 2e 00 00    	add    ebx,0x2e31
+    11d6:	       89 5d 80             	mov    DWORD PTR [ebp-0x80],ebx
+    11d9:	       c7 45 f8 00 00 00 00 	mov    DWORD PTR [ebp-0x8],0x0
+    11e0:	       8b 83 08 e0 ff ff    	mov    eax,DWORD PTR [ebx-0x1ff8]
+    11e6:	       89 45 86             	mov    DWORD PTR [ebp-0x7a],eax
+    11e9:	       8b 83 0c e0 ff ff    	mov    eax,DWORD PTR [ebx-0x1ff4]
+    11ef:	       89 45 8a             	mov    DWORD PTR [ebp-0x76],eax
+    11f2:	       8b 83 10 e0 ff ff    	mov    eax,DWORD PTR [ebx-0x1ff0]
+    11f8:	       89 45 8e             	mov    DWORD PTR [ebp-0x72],eax
+    11fb:	       66 8b 83 14 e0 ff ff 	mov    ax,WORD PTR [ebx-0x1fec]
+    1202:	       66 89 45 92          	mov    WORD PTR [ebp-0x6e],ax
+    1206:	       8d 83 16 e0 ff ff    	lea    eax,[ebx-0x1fea]
+    120c:	       89 04 24             	mov    DWORD PTR [esp],eax
+    120f:	       e8 4c fe ff ff       	call   1060 <printf@plt>
+    1214:	       8b 5d 80             	mov    ebx,DWORD PTR [ebp-0x80]
+    1217:	       8d 45 94             	lea    eax,[ebp-0x6c]
+    121a:	       8d 8b 29 e0 ff ff    	lea    ecx,[ebx-0x1fd7]
+    1220:	       89 0c 24             	mov    DWORD PTR [esp],ecx
+    1223:	       89 44 24 04          	mov    DWORD PTR [esp+0x4],eax
+    1227:	       e8 44 fe ff ff       	call   1070 <__isoc99_scanf@plt>
+    122c:	       8b 5d 80             	mov    ebx,DWORD PTR [ebp-0x80]
+    122f:	       8d 4d 94             	lea    ecx,[ebp-0x6c]
+    1232:	       8d 55 86             	lea    edx,[ebp-0x7a]
+    1235:	       89 e0                	mov    eax,esp
+    1237:	       89 50 04             	mov    DWORD PTR [eax+0x4],edx
+    123a:	       89 08                	mov    DWORD PTR [eax],ecx
+    123c:	       e8 ff fd ff ff       	call   1040 <strcmp@plt>
+    1241:	       83 f8 00             	cmp    eax,0x0
+    1244:	/----- 0f 85 16 00 00 00    	jne    1260 <main+0xa0>
+    124a:	|      8b 5d 80             	mov    ebx,DWORD PTR [ebp-0x80]
+    124d:	|      8d 83 2c e0 ff ff    	lea    eax,[ebx-0x1fd4]
+    1253:	|      89 04 24             	mov    DWORD PTR [esp],eax
+    1256:	|      e8 05 fe ff ff       	call   1060 <printf@plt>
+    125b:	|  /-- e9 11 00 00 00       	jmp    1271 <main+0xb1>
+    1260:	\--|-> 8b 5d 80             	mov    ebx,DWORD PTR [ebp-0x80]
+    1263:	   |   8d 83 37 e0 ff ff    	lea    eax,[ebx-0x1fc9]
+    1269:	   |   89 04 24             	mov    DWORD PTR [esp],eax
+    126c:	   |   e8 ef fd ff ff       	call   1060 <printf@plt>
+    1271:	   \-> 31 c0                	xor    eax,eax
+    1273:	       81 c4 84 00 00 00    	add    esp,0x84
+    1279:	       5b                   	pop    ebx
+    127a:	       5d                   	pop    ebp
+    127b:	       c3                   	ret    
+
+Disassembly of section .fini:
+
+0000127c <_fini>:
+    127c:	f3 0f 1e fb          	endbr32 
+    1280:	53                   	push   ebx
+    1281:	83 ec 08             	sub    esp,0x8
+    1284:	e8 37 fe ff ff       	call   10c0 <__x86.get_pc_thunk.bx>
+    1289:	81 c3 77 2d 00 00    	add    ebx,0x2d77
+    128f:	83 c4 08             	add    esp,0x8
+    1292:	5b                   	pop    ebx
+    1293:	c3                   	ret    
+c4c4c1% x,[ebx-0x1fd4]
+    1253:       |      89 04 24                 mov    DWORD PT
+c4c4c1% gdb level1 
+GNU gdb (Ubuntu 12.1-0ubuntu1~22.04.2) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from level1...
+(No debugging symbols found in level1)
+(gdb) b strcmp
+Breakpoint 1 at 0x1040
+(gdb) runQuit
+(gdb) 
+quit
+c4c4c1% gdb level1
+GNU gdb (Ubuntu 12.1-0ubuntu1~22.04.2) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from level1...
+(No debugging symbols found in level1)
+(gdb) b strcmp
+Breakpoint 1 at 0x1040
+(gdb) r 
+Starting program: /goinfre/joeberle/thehacker/binary/level1 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+Please enter key: 123
+
+Breakpoint 1, 0xf7f071d0 in ?? () from /lib32/libc.so.6
+(gdb) x/10i $pc
+=> 0xf7f071d0:	endbr32 
+   0xf7f071d4:	mov    0x4(%esp),%edx
+   0xf7f071d8:	mov    0x8(%esp),%eax
+   0xf7f071dc:	mov    %dx,%cx
+   0xf7f071df:	and    $0xfff,%cx
+   0xf7f071e4:	cmp    $0xff0,%cx
+   0xf7f071e9:	ja     0xf7f07237
+   0xf7f071eb:	movdqu (%edx),%xmm2
+   0xf7f071ef:	mov    %eax,%ecx
+   0xf7f071f1:	and    $0xfff,%ecx
+(gdb) up
+#1  0x56556241 in main ()
+(gdb) x/10i $pc
+=> 0x56556241 <main+129>:	cmp    $0x0,%eax
+   0x56556244 <main+132>:	jne    0x56556260 <main+160>
+   0x5655624a <main+138>:	mov    -0x80(%ebp),%ebx
+   0x5655624d <main+141>:	lea    -0x1fd4(%ebx),%eax
+   0x56556253 <main+147>:	mov    %eax,(%esp)
+   0x56556256 <main+150>:	call   0x56556060 <printf@plt>
+   0x5655625b <main+155>:	jmp    0x56556271 <main+177>
+   0x56556260 <main+160>:	mov    -0x80(%ebp),%ebx
+   0x56556263 <main+163>:	lea    -0x1fc9(%ebx),%eax
+   0x56556269 <main+169>:	mov    %eax,(%esp)
+(gdb) up
+Initial frame selected; you cannot go up.
+(gdb) start
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Temporary breakpoint 2 at 0x565561c4
+Starting program: /goinfre/joeberle/thehacker/binary/level1 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Temporary breakpoint 2, 0x565561c4 in main ()
+(gdb) x/10i $pc
+=> 0x565561c4 <main+4>:	sub    $0x84,%esp
+   0x565561ca <main+10>:	call   0x565561cf <main+15>
+   0x565561cf <main+15>:	pop    %ebx
+   0x565561d0 <main+16>:	add    $0x2e31,%ebx
+   0x565561d6 <main+22>:	mov    %ebx,-0x80(%ebp)
+   0x565561d9 <main+25>:	movl   $0x0,-0x8(%ebp)
+   0x565561e0 <main+32>:	mov    -0x1ff8(%ebx),%eax
+   0x565561e6 <main+38>:	mov    %eax,-0x7a(%ebp)
+   0x565561e9 <main+41>:	mov    -0x1ff4(%ebx),%eax
+   0x565561ef <main+47>:	mov    %eax,-0x76(%ebp)
+(gdb) x/50i $pc
+=> 0x565561c4 <main+4>:	sub    $0x84,%esp
+   0x565561ca <main+10>:	call   0x565561cf <main+15>
+   0x565561cf <main+15>:	pop    %ebx
+   0x565561d0 <main+16>:	add    $0x2e31,%ebx
+   0x565561d6 <main+22>:	mov    %ebx,-0x80(%ebp)
+   0x565561d9 <main+25>:	movl   $0x0,-0x8(%ebp)
+   0x565561e0 <main+32>:	mov    -0x1ff8(%ebx),%eax
+   0x565561e6 <main+38>:	mov    %eax,-0x7a(%ebp)
+   0x565561e9 <main+41>:	mov    -0x1ff4(%ebx),%eax
+   0x565561ef <main+47>:	mov    %eax,-0x76(%ebp)
+   0x565561f2 <main+50>:	mov    -0x1ff0(%ebx),%eax
+   0x565561f8 <main+56>:	mov    %eax,-0x72(%ebp)
+   0x565561fb <main+59>:	mov    -0x1fec(%ebx),%ax
+   0x56556202 <main+66>:	mov    %ax,-0x6e(%ebp)
+   0x56556206 <main+70>:	lea    -0x1fea(%ebx),%eax
+   0x5655620c <main+76>:	mov    %eax,(%esp)
+   0x5655620f <main+79>:	call   0x56556060 <printf@plt>
+   0x56556214 <main+84>:	mov    -0x80(%ebp),%ebx
+   0x56556217 <main+87>:	lea    -0x6c(%ebp),%eax
+   0x5655621a <main+90>:	lea    -0x1fd7(%ebx),%ecx
+   0x56556220 <main+96>:	mov    %ecx,(%esp)
+   0x56556223 <main+99>:	mov    %eax,0x4(%esp)
+   0x56556227 <main+103>:	call   0x56556070 <__isoc99_scanf@plt>
+   0x5655622c <main+108>:	mov    -0x80(%ebp),%ebx
+   0x5655622f <main+111>:	lea    -0x6c(%ebp),%ecx
+   0x56556232 <main+114>:	lea    -0x7a(%ebp),%edx
+   0x56556235 <main+117>:	mov    %esp,%eax
+   0x56556237 <main+119>:	mov    %edx,0x4(%eax)
+   0x5655623a <main+122>:	mov    %ecx,(%eax)
+   0x5655623c <main+124>:	call   0x56556040 <strcmp@plt>
+   0x56556241 <main+129>:	cmp    $0x0,%eax
+   0x56556244 <main+132>:	jne    0x56556260 <main+160>
+   0x5655624a <main+138>:	mov    -0x80(%ebp),%ebx
+   0x5655624d <main+141>:	lea    -0x1fd4(%ebx),%eax
+   0x56556253 <main+147>:	mov    %eax,(%esp)
+   0x56556256 <main+150>:	call   0x56556060 <printf@plt>
+   0x5655625b <main+155>:	jmp    0x56556271 <main+177>
+   0x56556260 <main+160>:	mov    -0x80(%ebp),%ebx
+   0x56556263 <main+163>:	lea    -0x1fc9(%ebx),%eax
+   0x56556269 <main+169>:	mov    %eax,(%esp)
+   0x5655626c <main+172>:	call   0x56556060 <printf@plt>
+   0x56556271 <main+177>:	xor    %eax,%eax
+   0x56556273 <main+179>:	add    $0x84,%esp
+   0x56556279 <main+185>:	pop    %ebx
+   0x5655627a <main+186>:	pop    %ebp
+   0x5655627b <main+187>:	ret    
+   0x5655627c <_fini>:	endbr32 
+   0x56556280 <_fini+4>:	push   %ebx
+   0x56556281 <_fini+5>:	sub    $0x8,%esp
+   0x56556284 <_fini+8>:	call   0x565560c0 <__x86.get_pc_thunk.bx>
+(gdb) b *main+124
+Breakpoint 3 at 0x5655623c
+(gdb) c
+Continuing.
+Please enter key: 123
+
+Breakpoint 3, 0x5655623c in main ()
+(gdb) x/20i $pc
+=> 0x5655623c <main+124>:	call   0x56556040 <strcmp@plt>
+   0x56556241 <main+129>:	cmp    $0x0,%eax
+   0x56556244 <main+132>:	jne    0x56556260 <main+160>
+   0x5655624a <main+138>:	mov    -0x80(%ebp),%ebx
+   0x5655624d <main+141>:	lea    -0x1fd4(%ebx),%eax
+   0x56556253 <main+147>:	mov    %eax,(%esp)
+   0x56556256 <main+150>:	call   0x56556060 <printf@plt>
+   0x5655625b <main+155>:	jmp    0x56556271 <main+177>
+   0x56556260 <main+160>:	mov    -0x80(%ebp),%ebx
+   0x56556263 <main+163>:	lea    -0x1fc9(%ebx),%eax
+   0x56556269 <main+169>:	mov    %eax,(%esp)
+   0x5655626c <main+172>:	call   0x56556060 <printf@plt>
+   0x56556271 <main+177>:	xor    %eax,%eax
+   0x56556273 <main+179>:	add    $0x84,%esp
+   0x56556279 <main+185>:	pop    %ebx
+   0x5655627a <main+186>:	pop    %ebp
+   0x5655627b <main+187>:	ret    
+   0x5655627c <_fini>:	endbr32 
+   0x56556280 <_fini+4>:	push   %ebx
+   0x56556281 <_fini+5>:	sub    $0x8,%esp
+(gdb) p $sp-4
+$1 = (void *) 0xffffd5ac
+(gdb) p (char *)$sp-4
+$2 = 0xffffd5ac ",bUV\314\325\377\377\276\325\377\377"
+(gdb) p (char *)$sp-8
+$3 = 0xffffd5a8 "\231\026\335\367,bUV\314\325\377\377\276\325\377\377"
+(gdb) p (char *)$sp-4
+$4 = 0xffffd5ac ",bUV\314\325\377\377\276\325\377\377"
+(gdb) x (char *)$sp-4
+   0xffffd5ac:	sub    $0x62,%al
+(gdb) x/s (char *)$sp-4
+0xffffd5ac:	",bUV\314\325\377\377\276\325\377\377"
+(gdb) x/s (char *)$sp-8
+0xffffd5a8:	"\231\026\335\367,bUV\314\325\377\377\276\325\377\377"
+(gdb) x/s $sp-Quit
+(gdb) s
+Single stepping until exit from function main,
+which has no line number information.
+
+Breakpoint 1, 0xf7f071d0 in ?? () from /lib32/libc.so.6
+(gdb) p $sp-4
+$5 = (void *) 0xffffd5a8
+(gdb) p (char*)$sp-4
+$6 = 0xffffd5a8 ""
+(gdb) p (char*)$sp-8
+$7 = 0xffffd5a4 "@\332\377", <incomplete sequence \367>
+(gdb) pQuitar*)$sp-8
+(gdb) p $sp-4
+$8 = (void *) 0xffffd5a8
+(gdb) p (char *)$sp-4
+$9 = 0xffffd5a8 ""
+(gdb) p (char *)$sp-8
+$10 = 0xffffd5a4 "@\332\377", <incomplete sequence \367>
+(gdb) p (char *)$sp+8
+$11 = 0xffffd5b4 "\276\325\377\377"
+(gdb) p (char *)$sp+4
+$12 = 0xffffd5b0 "\314\325\377\377\276\325\377\377"
+(gdb) start
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Temporary breakpoint 4 at 0x565561c4
+Starting program: /goinfre/joeberle/thehacker/binary/level1 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Temporary breakpoint 4, 0x565561c4 in main ()
+(gdb) b *main+124
+Note: breakpoint 3 also set at pc 0x5655623c.
+Breakpoint 5 at 0x5655623c
+(gdb) c
+Continuing.
+Please enter key: 123
+
+Breakpoint 3, 0x5655623c in main ()
+(gdb) x/10i $pc
+=> 0x5655623c <main+124>:	call   0x56556040 <strcmp@plt>
+   0x56556241 <main+129>:	cmp    $0x0,%eax
+   0x56556244 <main+132>:	jne    0x56556260 <main+160>
+   0x5655624a <main+138>:	mov    -0x80(%ebp),%ebx
+   0x5655624d <main+141>:	lea    -0x1fd4(%ebx),%eax
+   0x56556253 <main+147>:	mov    %eax,(%esp)
+   0x56556256 <main+150>:	call   0x56556060 <printf@plt>
+   0x5655625b <main+155>:	jmp    0x56556271 <main+177>
+   0x56556260 <main+160>:	mov    -0x80(%ebp),%ebx
+   0x56556263 <main+163>:	lea    -0x1fc9(%ebx),%eax
+(gdb) p $sp+4
+$13 = (void *) 0xffffd5b4
+(gdb) p (char *)$sp+4
+$14 = 0xffffd5b4 "\276\325\377\377"
+(gdb) p (char *)$sp+8
+$15 = 0xffffd5b8 ""
+(gdb) 
