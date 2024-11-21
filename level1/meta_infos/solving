@@ -1,0 +1,36 @@
+c4c4c1% gdb level1
+GNU gdb (Ubuntu 12.1-0ubuntu1~22.04.2) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from level1...
+(No debugging symbols found in level1)
+(gdb) break strcmp
+Breakpoint 1 at 0x1040
+(gdb) run
+Starting program: /home/joeberle/Documents/reverse_me/level1/level1 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+Please enter key: Test123
+
+Breakpoint 1, 0xf7f071d0 in ?? () from /lib32/libc.so.6
+(gdb) x/20xw $esp
+0xffffd2cc:     0x56556241      0xffffd2ec      0xffffd2de      0x56559000
+0xffffd2dc:     0x5f5fd000      0x63617473      0x68635f6b      0x006b6365
+0xffffd2ec:     0x74736554      0x00333231      0x00000020      0x00000000
+0xffffd2fc:     0xffffd528      0x00000000      0x00000000      0x01000000
+0xffffd30c:     0x0000000b      0xf7fc4540      0x00000000      0xf7d914be
+(gdb) x/s 0xffffd2de
+0xffffd2de:     "__stack_check"
+(gdb) exit
