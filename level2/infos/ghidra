@@ -1,0 +1,174 @@
+#include
+
+
+
+
+
+
+
+// WARNING: Unknown calling convention -- yet parameter storage is locked
+
+int fflush(FILE *__stream)
+
+{
+  int iVar1;
+  
+  iVar1 = fflush(__stream);
+  return iVar1;
+}
+
+
+
+// WARNING: Unknown calling convention -- yet parameter storage is locked
+
+int puts(char *__s)
+
+{
+  int iVar1;
+  
+  iVar1 = puts(__s);
+  return iVar1;
+}
+
+
+
+// WARNING: Unknown calling convention -- yet parameter storage is locked
+
+void exit(int __status)
+
+{
+                    // WARNING: Subroutine does not return
+  exit(__status);
+}
+
+
+
+// WARNING: Unknown calling convention -- yet parameter storage is locked
+
+size_t strlen(char *__s)
+
+{
+  size_t sVar1;
+  
+  sVar1 = strlen(__s);
+  return sVar1;
+}
+
+
+
+// WARNING: Unknown calling convention -- yet parameter storage is locked
+
+void * memset(void *__s,int __c,size_t __n)
+
+{
+  void *pvVar1;
+  
+  pvVar1 = memset(__s,__c,__n);
+  return pvVar1;
+}
+
+
+
+
+// WARNING: Unknown calling convention -- yet parameter storage is locked
+
+int atoi(char *__nptr)
+
+{
+  int iVar1;
+  
+  iVar1 = atoi(__nptr);
+  return iVar1;
+}
+
+
+
+
+
+void no(void)
+
+{
+  puts("Nope.");
+                    // WARNING: Subroutine does not return
+  exit(1);
+}
+
+
+
+
+void ok(void)
+
+{
+  puts("Good job.");
+  return;
+}
+
+
+
+undefined4 main(void)
+
+{
+  uint uVar1;
+  size_t sVar2;
+  int iVar3;
+  bool bVar4;
+  char local_3d;
+  char local_3c;
+  char local_3b;
+  undefined local_3a;
+  char inputstring [24];__isoc99_scanf
+  char local_21 [9];
+  uint resndx;
+  int i;
+  int local_10;
+  undefined4 local_c;
+  
+  local_c = 0;
+  printf("Please enter key: ");
+  local_10 = __isoc99_scanf(&DAT_00012d2e,inputstring);
+  if (local_10 != 1) {
+    no();
+  }
+  if (inputstring[1] != '0') {
+    no();
+  }
+  if (inputstring[0] != '0') {
+    no();
+  }
+  fflush(_stdin);
+  memset(local_21,0,9);
+  local_21[0] = 'd';
+  local_3a = 0;
+  resndx = 2;
+  i = 1;
+  while( true ) {
+    sVar2 = strlen(local_21);
+    uVar1 = resndx;
+    bVar4 = false;
+    if (sVar2 < 8) {
+      sVar2 = strlen(inputstring);
+      bVar4 = uVar1 < sVar2;
+    }
+    if (!bVar4) break;
+    local_3d = inputstring[resndx];
+    local_3c = inputstring[resndx + 1];
+    local_3b = inputstring[resndx + 2];
+    iVar3 = atoi(&local_3d);
+    local_21[i] = (char)iVar3;
+    resndx = resndx + 3;
+    i = i + 1;
+  }
+  local_21[i] = '\0';
+  iVar3 = strcmp(local_21,"delabere");
+  if (iVar3 == 0) {
+    ok();
+  }
+  else {
+    no();
+  }
+  return 0;
+}
+
+
+
+

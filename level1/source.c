@@ -3,7 +3,7 @@
 
 int main() {
     char input[100];
-    char correct_key[] = { '_', '_', 's', 't', 'a', 'c', 'k', '_', 'c', 'h', 'e', 'c', 'k', '\0' };
+    const char *correct_key = "__stack_check";
 
     printf("Please enter key: ");
     scanf("%99s", input);
